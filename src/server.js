@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Process incoming through the routers
 app.use(userRouter);
+app.use(uploadRouter);
 
 //use local middleware
 app.use(notFound);

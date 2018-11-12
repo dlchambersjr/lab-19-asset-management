@@ -1,4 +1,5 @@
 global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
 /**
  * Combines SuperTest and Mongoose Memory Server
  * to reduce (hopefully) the pain of 
@@ -22,7 +23,13 @@ export default (server) => supertest(server);
 export const startDB = async () => {
   mongoServer = new MongoMemoryServer();
   const mongoUri = await mongoServer.getConnectionString();
-  await mongoose.connect(mongoUri, (err) => {
+
+  const mongooseOptions = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  };
+
+  await mongoose.connect(mongoUri, mongooseOptions, (err) => {
     if (err) console.error(err);
   });
 };
