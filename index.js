@@ -1,15 +1,15 @@
-/**
- * put your server bootstrap code here
- * E.g. require dotenv, configure mongoose, start your server, etc. 
- * Note: keep this separate from app.js for easier testing
- * */
 'use strict';
 
 require('dotenv').config();
 
+require('babel-polyfill');
+
 require('babel-register');
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
+
+
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 require('./src/server.js').start(process.env.PORT);

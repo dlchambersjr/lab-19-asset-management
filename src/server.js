@@ -1,50 +1,35 @@
-// Load express framework
+// Load Express Framework
 import express from 'express';
 
-//Load cors becaes we are going to be accessing the server from a spereate client
-import cors from 'cors';
+// Load local middleware
+import userRouter from './api/user-router.js';
+import authRouter from './middleware/auth.js';
+import uploadRouter from './api/upload-router.js';
 
-// Load the different inhouse middleware pieces
-//1. Authentication
-import authRouter from './auth/router.js';
 
-// 2. Where to go after authenticated
-import uploadRouter from './routes/upload.js';
-
-// 3. What to do if the route is not found.
 import notFound from './middleware/404.js';
-
-// 4. What to do if there is an error
 import error from './middleware/error.js';
 
-// create a shortcut name for express()
+
 const app = express();
 
-// Activate express modules
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Tell express to follow the following "steps"
-app.use(authRouter);
-app.use(uploadRouter);
+// Process incoming through the routers
+app.use(userRouter);
+
+//use local middleware
 app.use(notFound);
+app.use(authRouter);
 app.use(error);
 
-
-let server = false;
+let server;
 
 module.exports = {
   app,
   start: (port) => {
-    if (!server) {
-      server = app.listen(port, (err) => {
-        if (err) { throw err; }
-        console.log('LAB-19 SERVER Listening on PORT: ', port);
-      });
-    } else {
-      console.log('server is already running');
-    }
+    server = app.listen(port, () => console.log(`LAB-19 SERVER Listening on PORT: ${port}`));
   },
   stop: () => {
     server.close(() => {
