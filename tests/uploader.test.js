@@ -11,14 +11,18 @@ beforeAll(startDB);
 afterAll(stopDB);
 
 describe('/upload route', () => {
-  it('should upload a file', (done) => {
-    return mockRequest.post('/upload')
-      .attach('img', `${__dirname}/asset/this-is-fine.jpeg`)
-      .then(res => {
-        expect(res.status).toEqual(200);
-        done();
-      })
-      .catch(console.error);
-    // .catch(err => console.error(err));
+  it('should upload a file', async () => {
+    try {
+      const uploadedPath = await mockRequest.post('/upload')
+        .attach('img', `${__dirname}/assets/passport.jpg`)
+        .then(res => {
+          expect(res.status).toEqual(200);
+        });
+
+      console.log(uploadedPath);
+
+      return uploadedPath;
+
+    } catch (error) { console.error(error); }
   });
 });

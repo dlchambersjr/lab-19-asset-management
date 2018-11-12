@@ -9,20 +9,20 @@ const uploadRouter = express.Router();
 
 const uploader = multer({ dest: `${__dirname}/../../tmp` });
 
-uploadRouter.post('/upload', uploader.any(), (request, response) => {
-  console.log('request.files', request.files);
+uploadRouter.post('/upload', uploader.any(), (req, res) => {
+  console.log('request.files', req.files);
 
-  if (request.files.length > 1) {
+  if (req.files.length > 1) {
     return 'Too many files';
   }
 
-  let file = request.files[0];
+  let file = req.files[0];
   let key = `${file.filename}:${file.originalname}`;
 
   s3.uploadFile(file.path, key)
     .then(url => {
       let output = { url: url };
-      response.send(output);
+      res.send(output);
     })
     .catch(console.error);
 
