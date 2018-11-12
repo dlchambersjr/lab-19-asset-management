@@ -1,7 +1,5 @@
 
-[![Build Status](https://travis-ci.com/dlchambersjr/lab-18-bearer-authorization.svg?branch=master)](https://travis-ci.com/dlchambersjr/lab-18-bearer-authorization)
-
-# Lab-18 ```Bearer Authentication```
+# Lab-19 ```Asset Management```
 
 ## Installation
 
@@ -32,6 +30,9 @@
 * express
 * jsonwebtoken
 * mongoose 
+* multer
+* aws-sdk
+* fs-extra
 
 ### Local Modules
 * index.js - entry point for server
@@ -47,10 +48,11 @@
 * error.js - Error handler for non HTTP repsonse code errors.
 * hashing.js - Custom hash generator to replace non-functioning bcrypt.
 * sendJSON.js - Returns status codes and converts JSON for response.write.
+* s3.js - Used to help load files to an AWS Bucket
 
 ## Testing
 * All test pass 100%
-* 90.16% Coverage
+* XXXXXX Coverage
 
 
 
